@@ -1,0 +1,31 @@
+[Link do repositório onde retiramos o DATASET]
+
+https://www.kaggle.com/yersever/500-person-gender-height-weight-bodymassindex
+
+[Construindo as Distribuições]
+
+# Binomial
+- Há diferença na escolha de eventos aleatórios "com repetição" ou "sem repetição" para concluir independência de eventos. Assim, para tratarmos como experimento binomial, consideramos amostragem com repetição ou, alternativamente, amostragem sem repetição mas com tamanho muito pequeno em relação ao tamanho da amostra (representando no máximo 5%, o que nos permite a aproximação).
+- Nesse caso temos n° de tentativas = n = 500, assumimos tentativas independentes e sucesso como altura > 170 cm. Além disso, a variável aleatória binomial (quantidade de sucessos nas 500 tentativas) será X, com maior probabilidade em X = 250, portanto, com base no DATASET, a probabilidade de sucesso é p = 250/500 = 0,5.
+- FMP: b(x; 500, 0.5) = (fatorial(500)) / (fatorial(x) * fatorial(500 - x)) * (0.5 ** x) * ((1 - 0.5)**(500 - x)) para x = 0, 1,..., 500; caso contrário, b(x, 500, 0.5) = 0.
+
+# Geométrica
+- Temos repetições independentes de um experimento de Bernoulli.
+- A variável aleatória de interesse X será o número de repetições necessárias até a ocorrência do primeiro sucesso - com maior probabilidade para X = 1; nesse caso, consideramos sucesso como altura > 170 cm e, tendo como base o DATASET, a probabilidade de sucesso é p = 250/500 = 0,5. 
+- FMP: P(X = n) = g(x; p) = ((1 - p) ** (n - 1)) * p
+
+# Binomial Negativa
+- Há diferença na escolha de eventos aleatórios "com repetição" ou "sem repetição" para concluir independência de eventos. Assim, consideramos aqui amostragem sem repetição.
+- O experimento consiste de uma sequência de tentativas independentes, cada uma resultando em sucesso (altura > 170 cm) ou falha (altura <= 170 cm); temos probabilidade de sucesso constante = p = 0.5 e o experimento continua (as tentativas são executadas) até observamos um total de sucessos = r = 250. A variável aleatória de interesse (número de falhas que precedem o r-ésimo sucesso) será X - com maior probabilidade para X = 250.
+- FMP: nb(x; 250, 0.5) = ((fatorial(x + 249)) / (fatorial(249) * fatorial(x))) * (0,5 ** (250 + x)) para x = 0, 1, 2,...
+
+# Hipergeométrica
+- Há diferença na escolha de eventos aleatórios "com repetição" ou "sem repetição" para concluir independência de eventos. Assim, consideramos aqui amostragem sem repetição.
+- Nesse caso, temos amostra de tamanho n = 500 e a variável aleatória de interesse (quantidade de sucessos na amostra) será X, com maior probabilidade em X = 250. Precisamos também dos seguintes parâmetros: n° de indivíduos na população (população finita) = N = 10000 e n° de sucessos na população = M = 5000.
+- FMP: h(x, 500, 5000, 10000) = (((fatorial(5000)) / (fatorial(x) * fatorial(5000 - x))) * (fatorial(5000)) / (fatorial(500 - x) * fatorial(4500 - x))) / ((fatorial(1000)) / (fatorial(500) * fatorial (9500))) para um inteiro x que satisfaça máx(0,-4500) <= x <= mín(500,5000).
+
+# Poisson
+- Diferente das outras distribuições que foram deduzidas a partir de um experimento consistindo de tentativas ou retiradas e na aplicação das leis da probabilidade aos resultados, não há um experimento simples que sirva de base para a distribuição de Poisson. Ainda assim, para experimentos binomiais em que 'n' é grande e 'p' é pequeno, temos a seguinte relação: 
+Supondo n tendendo ao infinito positivo e p tendendo a zero na FMP Binomial b(x; n, p), de tal forma que (n * p) se aproxime de um parâmetro lambda > 0, temos a aproximação b(x; n, p) = p(x; lambda). Observação: a partir do que foi dito anteriormente, usaremos as mesmas conclusões quanto à verificação de independência de eventos apresentadas na Distribuição Binomial.
+- Nesse caso, consideramos sucesso como altura > 198 cm; portanto, temos n = 500, p = 3/500 = 0.006 e lambda = n * p = 3.
+- FMP: p(x; 3) = ((e ** (-3)) * (3 ** x)) / fatorial(x) para x = 0, 1, 2,...
